@@ -12,6 +12,9 @@ function Add() {
     let Crewamount = useRef()
     let Earning = useRef()
     let Percent = useRef()
+  
+
+
 
     const addToLocalStorageFunc = (flight, Earning)=>{
         if(!isNaN(Earning)){
@@ -22,6 +25,11 @@ function Add() {
         }
 
     }
+    const handleInputChange = () => {
+        if (FlightNr.current) {
+            FlightNr.current.value = FlightNr.current.value.toUpperCase();
+        }
+      };
 
     let provisionCalculator = ()=>{
         currentFlights = JSON.parse(localStorage.getItem("flights"))
@@ -63,7 +71,7 @@ function Add() {
     <div className='inputForm'>
         <Backbutton />
         <h1 className='flightInfo'>Add flightinfo below</h1>
-        <input className='inputField' ref={FlightNr} type="text" placeholder='FlightNr.' />
+        <input onChange={handleInputChange} className='inputField' ref={FlightNr} type="text" placeholder='FlightNr.' />
         <input className='inputField' ref={Crewamount} type="number" placeholder='Crewamount'/>
         <input className='inputField' ref={Earning} type="number" placeholder='Total earning(SEK)'/>
         <input className='inputField' ref={Percent} type="number" placeholder='Percent'/>
