@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import FlightList from "./FlightList";
-import { Link } from "react-router-dom";
 import Backbutton from "./Backbutton";
 
 function FlightHistory() {
