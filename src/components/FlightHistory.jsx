@@ -25,7 +25,7 @@ function FlightHistory() {
         })}
       </ol>
 
-      {currentFlights ? <h2 className="totalProvisionHeading">
+      {totalProvision ? <h2 className="totalProvisionHeading">
         Total commission: {totalProvision}kr
       </h2> : ""}
     </div>
