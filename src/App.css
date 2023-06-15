@@ -139,3 +139,10 @@ border: .5px solid black;
   font-size: 16px;
   margin-bottom: 5px;
 }
+.flightName, .provision{
+  font-size: 18px;
+  font-weight: lighter;
+}
+button{
+  color: black;
+}
