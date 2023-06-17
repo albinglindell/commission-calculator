@@ -20,13 +20,6 @@ function Add() {
     let Percent = useRef()
 
 
-    
-    useEffect(()=>{
-        console.log(activeState)
-        if(!flightNr === ""){
-            setFlightNr("FlightNr")
-        }
-    },[activeState])
 
     const addToLocalStorageFunc = (flight, Earning)=>{
         if(!isNaN(Earning)){
