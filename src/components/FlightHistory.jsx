@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import FlightList from "./FlightList";
-import Backbutton from "./Backbutton";
+// import Backbutton from "./Backbutton";
 
 function FlightHistory() {
   const [currentFlights, setCurrentFlights] = useState([]);
@@ -12,7 +12,7 @@ function FlightHistory() {
 
   return (
     <div className="flightHistory">
-      <Backbutton />
+      {/* <Backbutton /> */}
       <h1 className="flightListHeading">previous flight</h1>
       {!totalProvision && <h2>Currently no flights added..</h2>}
       <ol className="orientedList">
