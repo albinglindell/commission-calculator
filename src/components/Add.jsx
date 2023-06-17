@@ -15,9 +15,9 @@ function Add() {
     } 
     const navigate = useNavigate()
     let FlightNr = useRef()
-    let Crewamount = useRef()
-    let Earning = useRef()
-    let Percent = useRef()
+    // let Crewamount = useRef()
+    // let Earning = useRef()
+    // let Percent = useRef()
 
 
 
