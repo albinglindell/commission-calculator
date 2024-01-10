@@ -6,6 +6,9 @@
   font-family: 'Heebo', sans-serif;
   font-weight: 400;
 }
+.App{
+  height: 100svh;
+}
 body{
   height: 100svh;
   overflow: hidden;
