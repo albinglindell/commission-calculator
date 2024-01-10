@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { FaAngleLeft } from 'react-icons/fa'
 
 function Add() {
-    let [flightNr, setFlightNr] = useState("FlightNr")
+    let [flightNr, setFlightNr] = useState("")
     let [totalSales, setTotalSales] = useState("Total sales")
     let [crewAmount, setCrewAmount] = useState("Crew amount")
     let [percent, setPercent] = useState("Percent")
@@ -31,9 +31,6 @@ function Add() {
 
     }
     const checkInputVal = ()=>{
-        if(flightNr ===""){
-            setFlightNr("FlightNr")
-        }
         if(totalSales ===""){
             setTotalSales("Total sales")
         }
@@ -53,16 +50,16 @@ function Add() {
             setActiveState("FlightNr")
         } else if(state === "Total sales") {
             setTotalSales("")
-
             setActiveState("Total sales")
+
         }else if(state === "Crew amount") {
             setCrewAmount("")
-
             setActiveState("Crew amount")
+
         }else if(state === "Percent") {
             setPercent("")
-
             setActiveState("Percent")
+
         }
         checkInputVal()
 
@@ -149,7 +146,7 @@ function Add() {
          */}
     <div className="statisticCard">
         {/* <div onClick={()=>onPressState("FlightNr")} className="totalEarnings">{flightNr}</div> */}
-        <input onClick={()=>onPressState("FlightNr")} ref={FlightNr} onChange={handleInputChange} type="text" className="flightNr" value={flightNr}/>
+        <input onClick={()=>onPressState("FlightNr")} ref={FlightNr} onChange={handleInputChange} type="text" className="flightNr" placeholder='FlightNr' value={flightNr}/>
         <div onClick={()=>onPressState("Total sales")} className="totalEarnings">{totalSales}</div>
         <div onClick={()=>onPressState("Crew amount")} className="crewAmount">{crewAmount}</div>
         <div onClick={()=>onPressState("Percent")} className="percentValue">{percent}</div>
