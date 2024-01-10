@@ -177,7 +177,7 @@ button{
   display: flex;
   flex-wrap: wrap;
   width: 95%;
-  height: 40vh;
+  height: 37svh;
   margin-bottom: 40px;
   border-radius: 25px;
   box-shadow: -3px 2px 10px 0px rgb(119, 119, 119),inset -8px 11px 20px 0px rgb(27, 106, 170);
@@ -222,7 +222,7 @@ text-align: center;
   justify-content: center;
   align-items: flex-end;
   flex-wrap: wrap;
-  gap: 15px;
+  gap: 5px;
 }
 .Formbutton{
   width: 55px;
