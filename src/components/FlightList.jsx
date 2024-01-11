@@ -1,10 +1,13 @@
 import React from 'react'
+import { IoMdAirplane } from "react-icons/io";
+
 
 function FlightList({flight}) {
   return (
     <div className='flightList'>
-        <h2 className='flightName'>FlightNr: {flight.flightNr}</h2>
-        <h3 className='provision'>Commission: {flight.provision}</h3>
+        <h2 className='flightName'>{flight.flightNr}</h2>
+        <span className='planeIcon'><IoMdAirplane /></span>
+        <h3 className='provision'>{flight.provision}Kr</h3>
     </div>
   )
 }

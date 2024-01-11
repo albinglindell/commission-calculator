@@ -13,7 +13,7 @@ function FlightHistory() {
   return (
     <div className="flightHistory">
       {/* <Backbutton /> */}
-      <h1 className="flightListHeading">previous flight</h1>
+      <h1 className="flightListHeading">Commission</h1>
       {!totalProvision && <h2>Currently no flights added..</h2>}
       <ol className="orientedList">
         {currentFlights && currentFlights.map((preFlight) => {
@@ -26,7 +26,7 @@ function FlightHistory() {
       </ol>
 
       {totalProvision ? <h2 className="totalProvisionHeading">
-        Total commission: {totalProvision}kr
+        Total {totalProvision}kr
       </h2> : ""}
     </div>
   );

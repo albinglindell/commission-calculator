@@ -60,7 +60,15 @@ body{
   width: 50%;
 }
 .orientedList{
-  width: 85%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 90%;
+  height: 75svh;
+  overflow: scroll;
+  list-style: none;
+  color: rgb(67, 67, 67);
+  border-bottom: .5px solid rgb(192, 192, 192);
 }
 .Backbtn{
 align-self: flex-start;
@@ -81,15 +89,20 @@ h1{
   display: flex;
   justify-content: space-between;
   max-width: 98%;
-  border-bottom: solid .5px black;
-  padding: 10px 5px;
+  border-bottom: .5px solid rgb(129, 129, 129);
+  padding: 10px 10px;
 }
 .totalProvisionHeading{
   align-self: flex-end;
   margin: 10px 10% 0 0;
+  position: absolute;
+  bottom: 40px;
 }
 .flightHistory{
+  position: relative;
+  margin-top: 25px;
   width: 100%;
+  height: 100svh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -97,8 +110,8 @@ h1{
 
 .popupContainer{
   width: 100%;
-  height: 120%;
-  transform: translateY(30%);
+  height: 100svh;
+  /* transform: translateY(30%); */
   position: absolute;
   display: flex;
   align-items: center;
@@ -112,15 +125,14 @@ h1{
 .popup{
   width: 300px;
   /* background: rgb(223, 223, 223); */
-  background:linear-gradient(45deg, rgb(154, 210, 255), rgb(53, 161, 255)); 
+  background:linear-gradient(45deg, rgb(96, 159, 211), rgb(36, 88, 136)); 
   border-radius: 20px;
-  color: rgb(32, 32, 32);
+  color: #FFFFFF;
   /* border-top: 40px solid rgb(127, 174, 218); */
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  margin-bottom: 70%;
   padding: 1rem;
   box-shadow: -3px 2px 10px 0px rgb(119, 119, 119)
 }
@@ -163,6 +175,17 @@ border: .5px solid black;
 .flightName, .provision{
   font-size: 18px;
   font-weight: lighter;
+}
+.flightName{
+  font-weight: bold;
+}
+.planeIcon{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.planeIcon > svg{
+  font-size: 25px;
 }
 button{
   color: black;
