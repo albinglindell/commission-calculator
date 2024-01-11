@@ -220,14 +220,15 @@ border-radius: 25px 25px 0 0;
 min-width: 100%;
 color: white;
 text-align: center;
+border-bottom: 1.5px solid rgb(16, 79, 131);
+
 }
 .flightNr::placeholder{
   color: rgb(255, 255, 255);
 }
 .totalEarnings, .flightNr{
   width: 100%;
-  height: 25%;
-  border-bottom: 1.5px solid rgb(16, 79, 131);
+  height: 50%;
 }
 .percentValue{
   height: 50%;

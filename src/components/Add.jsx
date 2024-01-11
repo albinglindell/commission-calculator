@@ -107,19 +107,19 @@ function Add() {
         const currentMoneyNumber = localStorage.getItem("total-provision-earned")
 
         let FlightNrVal = flightNr
-        let CrewamountVal = crewAmount
+        // let CrewamountVal = crewAmount
         let EarningVal = totalSales
-        let PercentVal = percent
+        // let PercentVal = percent
 
-        let percentage = (PercentVal / 100) * 0.99 + 0.01;
-        percentage = Math.floor(percentage * 100)/100
+        // let percentage = (PercentVal / 100) * 0.99 + 0.01;
+        // percentage = Math.floor(percentage * 100)/100
 
 
 
-        let totalEarningOnCurrentFlight = EarningVal / CrewamountVal * percentage
+        let totalEarningOnCurrentFlight = Number(EarningVal / 4 * 0.06).toFixed(1)
         let totalEarningPlusNewEarning = Number(currentMoneyNumber) + Number(totalEarningOnCurrentFlight)
 
-
+        console.log(totalEarningOnCurrentFlight)
         let currentFlight = 
             {
             "flightNr": FlightNrVal,
@@ -148,8 +148,8 @@ function Add() {
         {/* <div onClick={()=>onPressState("FlightNr")} className="totalEarnings">{flightNr}</div> */}
         <input onClick={()=>onPressState("FlightNr")} ref={FlightNr} onChange={handleInputChange} type="text" className="flightNr" placeholder='FlightNr' value={flightNr}/>
         <div onClick={()=>onPressState("Total sales")} className="totalEarnings">{totalSales}</div>
-        <div onClick={()=>onPressState("Crew amount")} className="crewAmount">{crewAmount}</div>
-        <div onClick={()=>onPressState("Percent")} className="percentValue">{percent}</div>
+        {/* <div onClick={()=>onPressState("Crew amount")} className="crewAmount">{crewAmount}</div>
+        <div onClick={()=>onPressState("Percent")} className="percentValue">{percent}</div> */}
     </div>
      <div className={activeState==="FlightNr" ? "FormbuttonContainer hidden" : "FormbuttonContainer"}>
     <div onClick={()=> deleteInput()}  className="delete"> <FaAngleLeft /> </div>
