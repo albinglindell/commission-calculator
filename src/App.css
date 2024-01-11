@@ -180,6 +180,7 @@ border: .5px solid black;
   font-weight: bold;
 }
 .planeIcon{
+  align-self: center;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -213,20 +214,21 @@ button{
   color: white;
   font-size: 25px;
 }
-.flightNr{
-  border-bottom: 1.5px solid rgb(16, 79, 131);
-  border-radius: 25px 25px 0 0;
-}
-.totalEarnings{
-  border-radius: 0 0 25px 25px;
 
-}
 .flightNr, .totalEarnings{
 background: transparent;
 border: 0;
 min-width: 100%;
 color: white;
 text-align: center;
+
+}
+.flightNr{
+  border-bottom: 1.5px solid rgb(16, 79, 131);
+  border-radius: 25px 25px 0 0;
+}
+.totalEarnings{
+  border-radius: 0 0 25px 25px;
 
 }
 .flightNr::placeholder, .totalEarnings::placeholder{
@@ -288,4 +290,7 @@ text-align: center;
 }
 .hidden{
   visibility: hidden;
+}
+.history-li{
+  background-color: #FFFFFF;
 }
