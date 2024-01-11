@@ -56,9 +56,9 @@ body{
   flex-direction: column;
   align-items: center;
 }
-.inputForm input{
+/* .inputForm input{
   width: 50%;
-}
+} */
 .orientedList{
   display: flex;
   flex-direction: column;
@@ -214,16 +214,22 @@ button{
   font-size: 25px;
 }
 .flightNr{
+  border-bottom: 1.5px solid rgb(16, 79, 131);
+  border-radius: 25px 25px 0 0;
+}
+.totalEarnings{
+  border-radius: 0 0 25px 25px;
+
+}
+.flightNr, .totalEarnings{
 background: transparent;
 border: 0;
-border-radius: 25px 25px 0 0;
 min-width: 100%;
 color: white;
 text-align: center;
-border-bottom: 1.5px solid rgb(16, 79, 131);
 
 }
-.flightNr::placeholder{
+.flightNr::placeholder, .totalEarnings::placeholder{
   color: rgb(255, 255, 255);
 }
 .totalEarnings, .flightNr{

@@ -1,14 +1,13 @@
 import React, { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 // import Backbutton from './Backbutton'
-import { FaAngleLeft } from 'react-icons/fa'
+// import { FaAngleLeft } from 'react-icons/fa'
 
 function Add() {
     let [flightNr, setFlightNr] = useState("")
-    let [totalSales, setTotalSales] = useState("Total sales")
-    let [crewAmount, setCrewAmount] = useState("Crew amount")
-    let [percent, setPercent] = useState("Percent")
-    let [activeState, setActiveState] = useState("")
+    let [totalSales, setTotalSales] = useState("")
+
+    // let [activeState, setActiveState] = useState("")
     let currentFlights = localStorage.getItem("flights")
     if(!currentFlights){
         localStorage.setItem("flights", JSON.stringify([]))
@@ -16,7 +15,7 @@ function Add() {
     const navigate = useNavigate()
     let FlightNr = useRef()
     // let Crewamount = useRef()
-    // let Earning = useRef()
+    let Earning = useRef()
     // let Percent = useRef()
 
 
@@ -30,74 +29,67 @@ function Add() {
         }
 
     }
-    const checkInputVal = ()=>{
-        if(totalSales ===""){
-            setTotalSales("Total sales")
-        }
-        if(crewAmount ===""){
-            setCrewAmount("Crew amount")
-        }
-        if(percent ===""){
-            setPercent("Percent")
-        }
-    }
 
 
-    const onPressState = (state)=>{
+    // const onPressState = (state)=>{
 
-        if(state ==="FlightNr"){
-            setFlightNr("")
-            setActiveState("FlightNr")
-        } else if(state === "Total sales") {
-            setTotalSales("")
-            setActiveState("Total sales")
+    //     if(state ==="FlightNr"){
+    //         setActiveState("FlightNr")
+    //     } else if(state === "Total sales") {
+    //         setActiveState("Total sales")
 
-        }else if(state === "Crew amount") {
-            setCrewAmount("")
-            setActiveState("Crew amount")
+    //     }else if(state === "Crew amount") {
+    //         setCrewAmount("")
+    //         setActiveState("Crew amount")
 
-        }else if(state === "Percent") {
-            setPercent("")
-            setActiveState("Percent")
+    //     }else if(state === "Percent") {
+    //         setPercent("")
+    //         setActiveState("Percent")
 
-        }
-        checkInputVal()
+    //     }
+    //     checkInputVal()
 
-    }
-    const handeClick = (val) => {
-        if(activeState === "flightNr"){
-            setFlightNr(flightNr += val)
-        }
-        if(activeState === "Total sales"){
-            setTotalSales( totalSales += val)
-        }
-        if(activeState === "Crew amount"){
-            setCrewAmount(crewAmount += val)
-        }
-        if(activeState === "Percent"){
-            setPercent(percent += val)
-        }
-    }
+    // }
+    // const handeClick = (val) => {
+    //     if(activeState === "flightNr"){
+    //         setFlightNr(flightNr += val)
+    //     }
+    //     if(activeState === "Total sales"){
+    //         setTotalSales( totalSales += val)
+    //     }
+    //     if(activeState === "Crew amount"){
+    //         setCrewAmount(crewAmount += val)
+    //     }
+    //     if(activeState === "Percent"){
+    //         setPercent(percent += val)
+    //     }
+    // }
 
-    const deleteInput = ()=>{
-        if(activeState === "flightNr"){
-            setFlightNr(flightNr.slice(0, -1))
-        }
-        if(activeState === "Total sales"){
-            setTotalSales( totalSales.slice(0, -1))
-        }
-        if(activeState === "Crew amount"){
-            setCrewAmount(crewAmount.slice(0, -1))
-        }
-        if(activeState === "Percent"){
-            setPercent(percent.slice(0, -1))
-        }
-    }
+    // const deleteInput = ()=>{
+    //     if(activeState === "flightNr"){
+    //         setFlightNr(flightNr.slice(0, -1))
+    //     }
+    //     if(activeState === "Total sales"){
+    //         setTotalSales( totalSales.slice(0, -1))
+    //     }
+    //     if(activeState === "Crew amount"){
+    //         setCrewAmount(crewAmount.slice(0, -1))
+    //     }
+    //     if(activeState === "Percent"){
+    //         setPercent(percent.slice(0, -1))
+    //     }
+    // }
 
     const handleInputChange = () => {
         if (FlightNr.current) {
             // FlightNr.current.value = FlightNr.current.value.toUpperCase();
             setFlightNr(FlightNr.current.value.toUpperCase())
+        }
+      };
+    const handleInputChangeEarnings = () => {
+        if (Earning.current) {
+            // FlightNr.current.value = FlightNr.current.value.toUpperCase();
+            setTotalSales( Earning.current.value)
         }
       };
 
@@ -146,13 +138,14 @@ function Add() {
          */}
     <div className="statisticCard">
         {/* <div onClick={()=>onPressState("FlightNr")} className="totalEarnings">{flightNr}</div> */}
-        <input onClick={()=>onPressState("FlightNr")} ref={FlightNr} onChange={handleInputChange} type="text" className="flightNr" placeholder='FlightNr' value={flightNr}/>
-        <div onClick={()=>onPressState("Total sales")} className="totalEarnings">{totalSales}</div>
+        <input  ref={FlightNr} onChange={handleInputChange} type="text" className="flightNr" placeholder='FlightNr' value={flightNr}/>
+        <input  ref={Earning} onChange={handleInputChangeEarnings} type='number' inputMode='numeric' pattern="[0-9]*" className="totalEarnings" placeholder='Total sales' value={totalSales}/>
+        {/* <div onClick={()=>onPressState("Total sales")} className="totalEarnings">{totalSales}</div> */}
         {/* <div onClick={()=>onPressState("Crew amount")} className="crewAmount">{crewAmount}</div>
         <div onClick={()=>onPressState("Percent")} className="percentValue">{percent}</div> */}
     </div>
-     <div className={activeState==="FlightNr" ? "FormbuttonContainer hidden" : "FormbuttonContainer"}>
-    <div onClick={()=> deleteInput()}  className="delete"> <FaAngleLeft /> </div>
+     <div className="FormbuttonContainer">
+    {/* <div onClick={()=> deleteInput()}  className="delete"> <FaAngleLeft /> </div>
     <div onClick={()=> handeClick(1)}  className="Formbutton">1</div>
     <div onClick={()=> handeClick(2)}  className="Formbutton">2</div>
     <div onClick={()=> handeClick(3)}  className="Formbutton">3</div>
@@ -162,7 +155,7 @@ function Add() {
     <div onClick={()=> handeClick(7)}  className="Formbutton">7</div>
     <div onClick={()=> handeClick(8)}  className="Formbutton">8</div>
     <div onClick={()=> handeClick(9)}  className="Formbutton">9</div>
-    <div onClick={()=> handeClick(0)}  className="Formbutton">0</div>
+    <div onClick={()=> handeClick(0)}  className="Formbutton">0</div> */}
     <div onClick={()=> provisionCalculator()} className="Formbutton">enter</div>
     </div>
     </div>
