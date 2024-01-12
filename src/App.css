@@ -89,8 +89,12 @@ h1{
   display: flex;
   justify-content: space-between;
   max-width: 98%;
-  border-bottom: .5px solid rgb(129, 129, 129);
-  padding: 10px 10px;
+  border-bottom: .5px solid rgb(207, 207, 207);
+  padding: 10px 20px;
+}
+
+.provision{
+  margin-right: 20px;
 }
 .totalProvisionHeading{
   align-self: flex-end;
@@ -178,14 +182,19 @@ border: .5px solid black;
 }
 .flightName{
   font-weight: bold;
+  width: 100px;
 }
-.planeIcon{
+.planeIcon, .deleteIcon{
   align-self: center;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.planeIcon > svg{
+.deleteIcon{
+  position: absolute;
+  right: 32px;
+}
+.planeIcon, .deleteIcon > svg{
   font-size: 25px;
 }
 button{

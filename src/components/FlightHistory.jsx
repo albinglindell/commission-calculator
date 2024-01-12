@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import FlightList from "./FlightList";
+
 // import Backbutton from "./Backbutton";
 
 function FlightHistory() {
@@ -18,8 +19,8 @@ function FlightHistory() {
       <ol className="orientedList">
         {currentFlights && currentFlights.map((preFlight) => {
           return (
-            <li>
-              <FlightList flight={preFlight} />
+            <li className="history-li">
+              <FlightList flight={preFlight} setCurrentFlights={setCurrentFlights}/>
             </li>
           );
         })}
