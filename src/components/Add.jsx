@@ -109,16 +109,16 @@ function Add() {
         const currentMoneyNumber = localStorage.getItem("total-provision-earned")
 
         let FlightNrVal = flightNr
-        // let CrewamountVal = crewAmount
+        let CrewamountVal = crewAmount
         let EarningVal = totalSales
-        // let PercentVal = percent
+        let PercentVal = percentage / 100
 
         // let percentage = (PercentVal / 100) * 0.99 + 0.01;
         // percentage = Math.floor(percentage * 100)/100
 
 
 
-        let totalEarningOnCurrentFlight = Number(EarningVal / 4 * 0.06).toFixed(1)
+        let totalEarningOnCurrentFlight = Number(EarningVal / CrewamountVal * PercentVal).toFixed(1)
         let totalEarningPlusNewEarning = Number(currentMoneyNumber) + Number(totalEarningOnCurrentFlight)
 
         console.log(totalEarningOnCurrentFlight)
