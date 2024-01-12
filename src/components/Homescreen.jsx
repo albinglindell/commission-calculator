@@ -1,6 +1,8 @@
 import React, {useState}from 'react'
 import { Link } from 'react-router-dom'
 import PopupModul from './PopupModul'
+import Nav from './Nav'
+import Header from './Header'
 
 function Homescreen() {
     const totalProvision = localStorage.getItem("total-provision-earned")
@@ -10,6 +12,7 @@ function Homescreen() {
 
   return (
     <div className='homeScreen'>
+      <Header heading={"Dashboard"}/>
         <PopupModul display={display} setDisplay={setDisplay} />
         <h2 className='total-provision'>Total commission: {totalProvision ? totalProvision : "0"}kr</h2>
         <div className="homeScreenButtonContainer">
@@ -21,6 +24,7 @@ function Homescreen() {
         </Link>
           <button className='button' onClick={()=>setDisplay(true)}>Delete history</button>
         </div>
+        <Nav page={"home"}/>
     </div>
   )
 }

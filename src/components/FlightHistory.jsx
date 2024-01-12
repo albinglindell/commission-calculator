@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import FlightList from "./FlightList";
+import Nav from "./Nav";
+import Header from "./Header";
 
 // import Backbutton from "./Backbutton";
 
@@ -14,7 +16,8 @@ function FlightHistory() {
   return (
     <div className="flightHistory">
       {/* <Backbutton /> */}
-      <h1 className="flightListHeading">Commission</h1>
+      <Header heading={"Commission"}/>
+      {/* <h1 className="flightListHeading">Commission</h1> */}
       {!totalProvision && <h2>Currently no flights added..</h2>}
       <ol className="orientedList">
         {currentFlights && currentFlights.map((preFlight) => {
@@ -29,6 +32,7 @@ function FlightHistory() {
       {totalProvision ? <h2 className="totalProvisionHeading">
         Total {totalProvision}kr
       </h2> : ""}
+      <Nav page={"history"}/>
     </div>
   );
 }

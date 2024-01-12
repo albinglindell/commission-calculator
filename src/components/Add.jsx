@@ -1,5 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Nav from './Nav'
+import Header from './Header'
 
 function Add() {
     let [flightNr, setFlightNr] = useState("")
@@ -89,6 +91,7 @@ function Add() {
 
   return (
     <div className='inputForm'>
+        <Header heading={"Add commission"}/>
     <div className="statisticCard">
         <input  ref={FlightNr} onChange={()=>handleInputChangeEarnings(FlightNr)} type="text" className="flightNr" placeholder='FlightNr' value={flightNr}/>
         <input  ref={Earning} onChange={()=>handleInputChangeEarnings(Earning)} type='number' inputMode='numeric' pattern="[0-9]*" className="totalEarnings" placeholder='Total sales' value={totalSales}/>
@@ -98,6 +101,8 @@ function Add() {
      <div className="FormbuttonContainer">
     <div onClick={()=> provisionCalculator()} className="Formbutton">enter</div>
     </div>
+    <Nav page={"add"}/>
+
     </div>
   )
 }

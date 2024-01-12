@@ -18,7 +18,7 @@ body{
   flex-direction: column;
   width: 100%;
   height: 100%;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 }
 .Link{
@@ -64,7 +64,8 @@ body{
   flex-direction: column;
   gap: 8px;
   width: 90%;
-  height: 75svh;
+  margin-top: 25px;
+  height: 65svh;
   overflow: scroll;
   list-style: none;
   color: rgb(67, 67, 67);
@@ -77,6 +78,7 @@ margin: 20px 0 0 20px;
 .flightListHeading, .flightInfo{
   border-bottom: .5px solid black;
   width: 80%;
+  margin-top: 25px;
   text-align: center;
   margin-bottom: 25px;
   padding: 0 15px 15px 15px;
@@ -98,13 +100,12 @@ h1{
 }
 .totalProvisionHeading{
   align-self: flex-end;
-  margin: 10px 10% 0 0;
   position: absolute;
-  bottom: 40px;
+  bottom: 90px;
+  right: 30px;
 }
 .flightHistory{
   position: relative;
-  margin-top: 25px;
   width: 100%;
   height: 100svh;
   display: flex;
@@ -204,7 +205,7 @@ button{
   height: 100svh;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 .statisticCard{
   display: flex;
@@ -310,4 +311,39 @@ border-bottom: 1.5px solid rgb(16, 79, 131);
 }
 .history-li{
   background-color: #FFFFFF;
+}
+nav{
+  display: flex;
+  position: absolute;
+  align-items: center;
+  bottom: 0;
+  left: 0;
+  height: 70px;
+  width: 100vw;
+  border-top: .5px solid rgb(87,87,87);
+}
+nav ol{
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  list-style: none;
+}
+.navIcon > .Link > svg {
+  font-size: 30px;
+  color: rgb(87, 87, 87);
+}
+.active > .Link > svg {
+  color: #4472C4 !important;
+}
+
+.header{
+  width: 100vw;
+  background-color: #4472C4;
+  height: 75px;
+  display: flex;
+  align-items: center;
+  color: white;
+}
+.header h1{
+  margin-left: 25px;
 }
