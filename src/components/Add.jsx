@@ -82,12 +82,7 @@ function Add() {
     //     }
     // }
 
-    const handleInputChange = () => {
-        if (FlightNr.current) {
-            // FlightNr.current.value = FlightNr.current.value.toUpperCase();
-            setFlightNr(FlightNr.current.value.toUpperCase())
-        }
-      };
+
     const handleInputChangeEarnings = (input) => {
         if (input === FlightNr) {
             if(FlightNr.current){
