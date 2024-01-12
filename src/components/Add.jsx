@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom'
 function Add() {
     let [flightNr, setFlightNr] = useState("")
     let [totalSales, setTotalSales] = useState("")
+    let [crewAmount, setCrewAmount] = useState("")
+    let [percentage, setPercentage] = useState("")
 
     // let [activeState, setActiveState] = useState("")
     let currentFlights = localStorage.getItem("flights")
@@ -14,9 +16,9 @@ function Add() {
     } 
     const navigate = useNavigate()
     let FlightNr = useRef()
-    // let Crewamount = useRef()
+    let Crewamount = useRef()
     let Earning = useRef()
-    // let Percent = useRef()
+    let Percent = useRef()
 
 
 
@@ -86,10 +88,23 @@ function Add() {
             setFlightNr(FlightNr.current.value.toUpperCase())
         }
       };
-    const handleInputChangeEarnings = () => {
-        if (Earning.current) {
+    const handleInputChangeEarnings = (input) => {
+        if (input === FlightNr) {
+            if(FlightNr.current){
+                // FlightNr.current.value = FlightNr.current.value.toUpperCase();
+                setFlightNr(FlightNr.current.value.toUpperCase())
+
+            }
+        }
+        if (input === Earning) {
             // FlightNr.current.value = FlightNr.current.value.toUpperCase();
-            setTotalSales( Earning.current.value)
+            setTotalSales(Earning.current.value)
+        }
+        if(input === Crewamount){
+            setCrewAmount( Crewamount.current.value)
+        }
+        if(input === Percent){
+            setPercentage( Percent.current.value)
         }
       };
 
@@ -138,8 +153,10 @@ function Add() {
          */}
     <div className="statisticCard">
         {/* <div onClick={()=>onPressState("FlightNr")} className="totalEarnings">{flightNr}</div> */}
-        <input  ref={FlightNr} onChange={handleInputChange} type="text" className="flightNr" placeholder='FlightNr' value={flightNr}/>
-        <input  ref={Earning} onChange={handleInputChangeEarnings} type='number' inputMode='numeric' pattern="[0-9]*" className="totalEarnings" placeholder='Total sales' value={totalSales}/>
+        <input  ref={FlightNr} onChange={()=>handleInputChangeEarnings(FlightNr)} type="text" className="flightNr" placeholder='FlightNr' value={flightNr}/>
+        <input  ref={Earning} onChange={()=>handleInputChangeEarnings(Earning)} type='number' inputMode='numeric' pattern="[0-9]*" className="totalEarnings" placeholder='Total sales' value={totalSales}/>
+        <input  ref={Crewamount} onChange={()=>handleInputChangeEarnings(Crewamount)} type='number' inputMode='numeric' pattern="[0-9]*" className="crewAmount" placeholder='Crew amout' value={crewAmount}/>
+        <input  ref={Percent} onChange={()=>handleInputChangeEarnings(Percent)} type='number' inputMode='numeric' pattern="[0-9]*" className="percentValue" placeholder='%' value={percentage}/>
         {/* <div onClick={()=>onPressState("Total sales")} className="totalEarnings">{totalSales}</div> */}
         {/* <div onClick={()=>onPressState("Crew amount")} className="crewAmount">{crewAmount}</div>
         <div onClick={()=>onPressState("Percent")} className="percentValue">{percent}</div> */}

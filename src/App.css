@@ -221,31 +221,39 @@ border: 0;
 min-width: 100%;
 color: white;
 text-align: center;
+border-bottom: 1.5px solid rgb(16, 79, 131);
 
 }
 .flightNr{
-  border-bottom: 1.5px solid rgb(16, 79, 131);
   border-radius: 25px 25px 0 0;
 }
-.totalEarnings{
-  border-radius: 0 0 25px 25px;
 
-}
-.flightNr::placeholder, .totalEarnings::placeholder{
+.flightNr::placeholder, .totalEarnings::placeholder, .percentValue::placeholder, .crewAmount::placeholder{
   color: rgb(255, 255, 255);
 }
 .totalEarnings, .flightNr{
   width: 100%;
-  height: 50%;
+  height: 25%;
+
 }
-.percentValue{
+.percentValue, .crewAmount{
+  background: transparent;
+  color: white;
+  text-align: center;
   height: 50%;
   width: 50%;
+  border: 0;
+}
+.percentValue{
+  border-radius: 0 0 25px 0;
+
 }
 .crewAmount{
   height: 50%;
   width: 50%;
   border-right: 1.5px solid rgb(16, 79, 131);
+  border-radius: 0 0 0 25px;
+
 }
 .FormbuttonContainer{
   position: relative;
