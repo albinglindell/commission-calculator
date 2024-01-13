@@ -12,10 +12,12 @@ function Homescreen() {
 
   return (
     <div className='homeScreen'>
+      <div>
       <Header heading={"Dashboard"}/>
-        <PopupModul display={display} setDisplay={setDisplay} />
         <h2 className='total-provision'>Total commission: {totalProvision ? totalProvision : "0"}kr</h2>
-        <div className="homeScreenButtonContainer">
+      </div>
+        <PopupModul display={display} setDisplay={setDisplay} />
+        {/* <div className="homeScreenButtonContainer">
         <Link className='Link' to={"/AddFlight"}>
           <button className='button' >Add flight commission</button>
         </Link>
@@ -23,7 +25,7 @@ function Homescreen() {
           <button className='button' >Flight history</button>
         </Link>
           <button className='button' onClick={()=>setDisplay(true)}>Delete history</button>
-        </div>
+        </div> */}
         <Nav page={"home"}/>
     </div>
   )
