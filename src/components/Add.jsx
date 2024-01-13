@@ -87,7 +87,7 @@ function Add() {
         <Header heading={"Add commission"}/>
     <div className="statisticCard">
         <input  ref={FlightNr} onChange={()=>handleInputChangeEarnings(FlightNr)} type="text" className="flightNr" placeholder='FlightNr' value={flightNr}/>
-        <input  ref={Earning} onChange={()=>handleInputChangeEarnings(Earning)} type='number' inputMode='numeric' pattern="[0-9]*" className="totalEarnings" placeholder='Total sales' value={totalSales}/>
+        <input  ref={Earning} onChange={()=>handleInputChangeEarnings(Earning)} type='number' inputMode='numeric' pattern="[0-9,]*" className="totalEarnings" placeholder='Total sales' value={totalSales}/>
         <input  ref={Crewamount} onChange={()=>handleInputChangeEarnings(Crewamount)} type='number' inputMode='numeric' pattern="[0-9]*" className="crewAmount" placeholder='Crew amout' value={crewAmount}/>
         <input  ref={Percent} onChange={()=>handleInputChangeEarnings(Percent)} type='number' inputMode='numeric' pattern="[0-9]*" className="percentValue" placeholder='%' value={percentage}/>
     </div>
