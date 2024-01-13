@@ -24,20 +24,13 @@ function Add() {
     const addToLocalStorageFunc = (flight, Earning)=>{
         if(!isNaN(Earning)){
             localStorage.setItem("total-provision-earned", Earning)
-            navigate("/")
             localStorage.setItem("flights", JSON.stringify(flight))
+            navigate("/flightHistory")
 
         }
 
     }
-
-
-    
-                
-            
-            
-        
-                                                            
+                                            
                                                         
 
     const handleInputChangeEarnings = (input) => {
