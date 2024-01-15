@@ -66,9 +66,12 @@ body{
     left: 0;
     right: 0;
     bottom: 0;
-    background: url("./assets/plane.png") no-repeat center;
+    background: url("./assets/plane.webp") no-repeat center;
     background-size: contain;
     opacity: 0.13; /* Adjust the opacity as needed */
+    background-blend-mode: lighten;
+    background-position: bottom;
+    margin-bottom: 90px;
     z-index: -1;
   
   /* background: url("./assets/plane.png");
