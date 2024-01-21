@@ -4,23 +4,6 @@ import { TiDeleteOutline } from "react-icons/ti";
 
 
 function FlightList({flight, deletePlane}) {
-  // const deletePlane = async (planeId) => {
-  //   try {
-  //     const response = await fetch(`https://us-central1-commission-7410f.cloudfunctions.net/deleteflight?id=${planeId}`, {
-  //       method: 'DELETE'
-  //     });
-  
-  //     if (!response.ok) {
-  //       throw new Error(`HTTP error! Status: ${response.status}`);
-  //     }
-      
-  //     console.log('Delete response:', await response.text());
-  //   } catch (error) {
-  //     console.error('Error deleting plane:', error);
-  //   }
-  // };
-  
-  // Example usage
 
   return (
     <div className='flightList'>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import FlightList from "./FlightList";
 import Nav from "./Nav";
 import Header from "./Header";
+import LoadingSpinner from "./LoadingSpinner";
 
 // import Backbutton from "./Backbutton";
 
@@ -9,6 +10,8 @@ function FlightHistory() {
   const [currentFlights, setCurrentFlights] = useState([]);
   const [totalProvision, setTotalProvision] = useState();
   const [deletionCount, setDeletionCount] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [noData, setNoData] = useState(false);
 
   const deletePlane = async (planeId) => {
     try {
@@ -19,7 +22,7 @@ function FlightHistory() {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      setDeletionCount(deletionCount => deletionCount++)
+      setDeletionCount(deletionCount => deletionCount + 1)
       console.log('Delete response:', await response.text());
     } catch (error) {
       console.error('Error deleting plane:', error);
@@ -27,6 +30,7 @@ function FlightHistory() {
   };
 
   useEffect(() => {
+    setLoading(true)
     fetch('https://us-central1-commission-7410f.cloudfunctions.net/getflight')
       .then(response => response.json())
       .then(data => {
@@ -34,6 +38,13 @@ function FlightHistory() {
         // Now calculate totalProvision here after currentFlights is set
         const total = data.reduce((acc, obj) => Number(acc) + Number(obj.provision), 0);
         setTotalProvision(total);
+        setLoading(false)
+        if(!data){
+          setNoData(true)
+        }
+        else{
+          setNoData(false)
+        }
       })
       .catch(error => {
         console.error('Error fetching planes:', error);
@@ -49,7 +60,7 @@ function FlightHistory() {
       {/* <Backbutton /> */}
       <Header heading={"Commission"}/>
       {/* <h1 className="flightListHeading">Commission</h1> */}
-      {!totalProvision && <h2>Currently no flights added..</h2>}
+      {noData && <h2>Currently no flights added..</h2>}
       <ol className="orientedList">
         {currentFlights && currentFlights.map((preFlight, i) => {
           return (
@@ -63,6 +74,7 @@ function FlightHistory() {
       {totalProvision ? <h2 className="totalProvisionHeading">
         Total {totalProvision}kr
       </h2> : ""}
+      {loading ? <LoadingSpinner /> : ""}
       <Nav page={"history"}/>
     </div>
   );

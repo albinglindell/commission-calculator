@@ -100,7 +100,7 @@ function Add() {
         <input  ref={Percent} onChange={()=>handleInputChangeEarnings(Percent)} type='number' inputMode='numeric' pattern="[0-9]*" className="percentValue" placeholder='%' value={percentage}/>
     </div>
      <div className="FormbuttonContainer">
-    <div onClick={()=> provisionCalculator()} className="Formbutton">enter</div>
+        <button onClick={()=> provisionCalculator()} className="Formbutton">Add flight</button>
     </div>
     <Nav page={"add"}/>
 

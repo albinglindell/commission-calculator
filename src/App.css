@@ -236,9 +236,9 @@ button{
   width: 95%;
   height: 37svh;
   margin-bottom: 40px;
-  border-radius: 25px;
-  box-shadow: -3px 2px 10px 0px rgb(119, 119, 119),inset -8px 11px 20px 0px rgb(27, 106, 170);
-  background:linear-gradient(45deg, rgb(96, 159, 211), rgb(36, 88, 136)); 
+  border-radius: 7px;
+  box-shadow: -3px 2px 10px 0px rgb(119, 119, 119);
+  background: #4472C3; 
 }
 .statisticCard div, input{
   display: flex;
@@ -258,53 +258,42 @@ border-bottom: 1.5px solid rgb(16, 79, 131);
 
 }
 .flightNr{
-  border-radius: 25px 25px 0 0;
+  border-radius: 7px 7px 0 0;
 }
 
 .flightNr::placeholder, .totalEarnings::placeholder, .percentValue::placeholder, .crewAmount::placeholder{
   color: rgb(255, 255, 255);
 }
-.totalEarnings, .flightNr{
+.flightNr:focus, .totalEarnings:focus, .percentValue:focus, .crewAmount:focus{
+
+  outline: .5px solid black;
+}
+.totalEarnings, .flightNr, .percentValue, .crewAmount{
   width: 100%;
   height: 25%;
-
 }
 .percentValue, .crewAmount{
   background: transparent;
   color: white;
   text-align: center;
-  height: 50%;
-  width: 50%;
   border: 0;
 }
 .percentValue{
-  border-radius: 0 0 25px 0;
-
+  border-radius: 0 0 7px 7px ;
 }
 .crewAmount{
-  height: 50%;
-  width: 50%;
-  border-right: 1.5px solid rgb(16, 79, 131);
-  border-radius: 0 0 0 25px;
+  border-bottom: 1.5px solid rgb(16, 79, 131);
+}
 
-}
-.FormbuttonContainer{
-  position: relative;
-  width: 80%;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  flex-wrap: wrap;
-  gap: 5px;
-}
 .Formbutton{
-  width: 55px;
   margin: 10px;
-  aspect-ratio: 1;
   display: flex;
   align-items: center;
+  width: 200px;
+  height: 50px;
   justify-content: center;
-  border-radius: 25px 25px 30px 30px;
+  border: .5px solid black;
+  border-radius: 7px;
   box-shadow: -2px 1px 7px 0px gray, inset -1px 2px 12px 0px rgba(128, 128, 128, 0.151);
   background-color: rgb(248, 248, 248);
 }
@@ -324,10 +313,6 @@ border-bottom: 1.5px solid rgb(16, 79, 131);
   border-radius: 25px 25px 30px 30px;
   box-shadow: -2px 1px 7px 0px gray, inset -1px 2px 12px 0px rgba(128, 128, 128, 0.151);
   background-color: rgb(248, 248, 248);
-}
-.Formbutton:last-child{
-  width: 145px;
-  aspect-ratio: 2.7;
 }
 .hidden{
   visibility: hidden;
@@ -403,4 +388,39 @@ nav ol{
 }
 .google{
   font-size: 25px;
+}
+.loadingContainer{
+  position: absolute;
+  width: 100svw;
+  height: 100svh;
+  backdrop-filter: blur(1.5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.lds-dual-ring {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid #4472C3;
+  border-color: #4472C3 transparent #4472C3 transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
