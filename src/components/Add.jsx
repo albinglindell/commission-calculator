@@ -2,13 +2,18 @@ import React, { useRef, useState } from 'react'
 import Nav from './Nav'
 import Header from './Header'
 import { getAuth } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom'
+import LoadingSpinner from './LoadingSpinner';
 
 
 function Add() {
+    const navigate = useNavigate()
     let [flightNr, setFlightNr] = useState("")
     let [totalSales, setTotalSales] = useState("")
     let [crewAmount, setCrewAmount] = useState("")
     let [percentage, setPercentage] = useState("")
+    const [loading, setLoading] = useState(false);
+
 
         let currentFlights = localStorage.getItem("flights")
     if(!currentFlights){
@@ -21,6 +26,8 @@ function Add() {
 
 
     const addPlaneToUserCollection = async (planeData) => {
+        
+        setLoading(true)
         const auth = getAuth();
         const user = auth.currentUser;
       
@@ -34,8 +41,10 @@ function Add() {
             },
             body: JSON.stringify(planeData)
           });
-          console.log(response)
           // Handle response
+          console.log(response)
+          setLoading(false)
+          navigate("/flightHistory")
         } else {
           // User not logged in
         }
@@ -74,7 +83,6 @@ function Add() {
 
         let totalEarningOnCurrentFlight = Number(EarningVal / CrewamountVal * PercentVal).toFixed(1)
 
-        console.log(totalEarningOnCurrentFlight)
         let currentFlight = 
             {
             "flightNr": FlightNrVal,
@@ -103,7 +111,7 @@ function Add() {
         <button onClick={()=> provisionCalculator()} className="Formbutton">Add flight</button>
     </div>
     <Nav page={"add"}/>
-
+    {loading ? <LoadingSpinner /> : ""}
     </div>
   )
 }
