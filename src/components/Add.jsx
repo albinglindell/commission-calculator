@@ -1,7 +1,8 @@
 import React, { useRef, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import Nav from './Nav'
 import Header from './Header'
+import { getAuth } from 'firebase/auth';
+
 
 function Add() {
     let [flightNr, setFlightNr] = useState("")
@@ -13,23 +14,32 @@ function Add() {
     if(!currentFlights){
         localStorage.setItem("flights", JSON.stringify([]))
     } 
-    const navigate = useNavigate()
     let FlightNr = useRef()
     let Crewamount = useRef()
     let Earning = useRef()
     let Percent = useRef()
 
 
-
-    const addToLocalStorageFunc = (flight, Earning)=>{
-        if(!isNaN(Earning)){
-            localStorage.setItem("total-provision-earned", Earning)
-            localStorage.setItem("flights", JSON.stringify(flight))
-            navigate("/flightHistory")
-
+    const addPlaneToUserCollection = async (planeData) => {
+        const auth = getAuth();
+        const user = auth.currentUser;
+      
+        if (user) {
+          const token = await user.getIdToken();
+          const response = await fetch('https://us-central1-commission-7410f.cloudfunctions.net/addflight', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(planeData)
+          });
+          console.log(response)
+          // Handle response
+        } else {
+          // User not logged in
         }
-
-    }
+      };
                                             
                                                         
 
@@ -54,8 +64,6 @@ function Add() {
     let provisionCalculator = ()=>{
         currentFlights = JSON.parse(localStorage.getItem("flights"))
 
-        const currentMoneyNumber = localStorage.getItem("total-provision-earned")
-
         let FlightNrVal = flightNr
         let CrewamountVal = crewAmount
         let EarningVal = totalSales
@@ -65,7 +73,6 @@ function Add() {
 
 
         let totalEarningOnCurrentFlight = Number(EarningVal / CrewamountVal * PercentVal).toFixed(1)
-        let totalEarningPlusNewEarning = Number(currentMoneyNumber) + Number(totalEarningOnCurrentFlight)
 
         console.log(totalEarningOnCurrentFlight)
         let currentFlight = 
@@ -74,10 +81,11 @@ function Add() {
             "provision":totalEarningOnCurrentFlight
         }
        if(currentFlights){
-        currentFlights.unshift(currentFlight)
-            addToLocalStorageFunc(currentFlights, totalEarningPlusNewEarning)
+        addPlaneToUserCollection(currentFlight)
+        // currentFlights.unshift(currentFlight)
+        //     addToLocalStorageFunc(currentFlights, totalEarningPlusNewEarning)
         }else{
-            addToLocalStorageFunc(currentFlight, totalEarningPlusNewEarning)
+            // addToLocalStorageFunc(currentFlight, totalEarningPlusNewEarning)
        }
        
     }

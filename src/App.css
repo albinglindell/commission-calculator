@@ -366,8 +366,41 @@ nav ol{
   height: 75px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   color: white;
 }
+.logout{
+  margin-right: 5%;
+  font-size: 35px;
+}
+
 .header h1{
   margin-left: 25px;
+}
+
+.LoginContainer{
+  height: 100svh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.loginButton{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  position: relative;
+  top: 40%;
+  background: white;
+  color: #444;
+  width: 190px;
+  height: 50px;
+  border-radius: 5px;
+  border: thin solid #888;
+  box-shadow: 1px 1px 1px grey;
+  white-space: nowrap;
+}
+.google{
+  font-size: 25px;
 }

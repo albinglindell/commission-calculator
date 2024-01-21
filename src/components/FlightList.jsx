@@ -3,27 +3,24 @@ import { IoMdAirplane } from "react-icons/io";
 import { TiDeleteOutline } from "react-icons/ti";
 
 
-function FlightList({flight,setCurrentFlights}) {
-  let removeItem = ()=>{
-
-    let flightsString = localStorage.getItem("flights");
-    let totalCommision = localStorage.getItem("total-provision-earned");
-    let flightsArray = JSON.parse(flightsString);
-    let newCommision = parseInt(totalCommision - flight.provision).toFixed(1)
-    const index = flightsArray.findIndex(f => f.flightNr === flight.flightNr);
-    
-        flightsArray.splice(index, 1); 
-    
-      flightsString = JSON.stringify(flightsArray);
-      if(flightsArray.length !== 0){
-        localStorage.setItem("flights", flightsString);
-        localStorage.setItem("total-provision-earned", newCommision);
-      } else {
-        localStorage.clear()
-      }
-      setCurrentFlights(flightsArray)
+function FlightList({flight, deletePlane}) {
+  // const deletePlane = async (planeId) => {
+  //   try {
+  //     const response = await fetch(`https://us-central1-commission-7410f.cloudfunctions.net/deleteflight?id=${planeId}`, {
+  //       method: 'DELETE'
+  //     });
   
-  }
+  //     if (!response.ok) {
+  //       throw new Error(`HTTP error! Status: ${response.status}`);
+  //     }
+      
+  //     console.log('Delete response:', await response.text());
+  //   } catch (error) {
+  //     console.error('Error deleting plane:', error);
+  //   }
+  // };
+  
+  // Example usage
 
   return (
     <div className='flightList'>
@@ -32,7 +29,7 @@ function FlightList({flight,setCurrentFlights}) {
         <h3 className='provision'>{flight.provision}Kr</h3>
         {/* <button >Delete</button> */}
         <span className='deleteIcon'>
-        <TiDeleteOutline onClick={()=>removeItem(flight)}/>
+        <TiDeleteOutline onClick={()=>deletePlane(flight.id)}/>
         </span>
     </div>
   )
