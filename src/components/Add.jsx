@@ -55,12 +55,11 @@ function Add() {
     const handleInputChangeEarnings = (input) => {
         if (input === FlightNr) {
             if(FlightNr.current){
-                                setFlightNr(FlightNr.current.value.toUpperCase())
-
+                setFlightNr(FlightNr.current.value.toUpperCase())
             }
         }
         if (input === Earning) {
-                        setTotalSales(Earning.current.value)
+         setTotalSales(Earning.current.value)
         }
         if(input === Crewamount){
             setCrewAmount( Crewamount.current.value)
