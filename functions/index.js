@@ -17,43 +17,49 @@ const cors = require('cors')({origin: true});
 
 admin.initializeApp();
 
-exports.getflight = functions.https.onRequest((request, response) => {
-  cors(request, response, () => {
-    // Your function logic goes here.
-    const db = admin.firestore();
-    db.collection('flight').get()
-      .then(snapshot => {
-        const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        response.json(data);
-      })
-      .catch(error => {
-        console.error("Error getting documents: ", error);
-        response.status(500).send(error);
-      });
-  });
-});
-
-// exports.addflight = functions.https.onRequest((request, response) => {
-//   cors(request, response, async () => {
-//     if (request.method !== 'POST') {
-//       return response.status(405).send('Method Not Allowed');
-//     }
-
+// exports.getflight = functions.https.onRequest((request, response) => {
+//   cors(request, response, () => {
+//     // Your function logic goes here.
 //     const db = admin.firestore();
-//     const flightData = request.body;
-
-//     try {
-//       const res = await db.collection('flight').add(flightData);
-//       response.status(201).send({ id: res.id, ...flightData });
-//     } catch (error) {
-//       console.error("Error adding document: ", error);
-//       response.status(500).send(error);
-//     }
+//     db.collection('flight').get()
+//       .then(snapshot => {
+//         const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+//         response.json(data);
+//       })
+//       .catch(error => {
+//         console.error("Error getting documents: ", error);
+//         response.status(500).send(error);
+//       });
 //   });
 // });
 
+exports.getflight = functions.https.onRequest((request, response) => {
+  cors(request, response, async () => {
+    if (request.method !== 'GET') {
+      return response.status(405).send('Method Not Allowed');
+    }
 
-exports.addflight = functions.https.onRequest((request, response) => {
+    try {
+      const token = request.get('Authorization').split('Bearer ')[1];
+      const decodedToken = await admin.auth().verifyIdToken(token);
+      const userId = decodedToken.uid;
+
+      const db = admin.firestore();
+      const userFlightsRef = db.collection('users').doc(userId).collection('flights');
+      
+      const snapshot = await userFlightsRef.get();
+      const flights = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+      response.status(200).json(flights);
+    } catch (error) {
+      console.error("Error getting user's flights: ", error);
+      response.status(500).send(error);
+    }
+  });
+});
+
+
+exports.addFlight = functions.https.onRequest((request, response) => {
   cors(request, response, async () => {
     if (request.method !== 'POST') {
       return response.status(405).send('Method Not Allowed');
@@ -64,37 +70,21 @@ exports.addflight = functions.https.onRequest((request, response) => {
       const decodedToken = await admin.auth().verifyIdToken(token);
       const userId = decodedToken.uid;
       
-      const flughtData = request.body; // The data to be added/updated in the user's document
+      const flightData = request.body; // The flight data to be added
       const db = admin.firestore();
-      const userDocRef = db.collection('users').doc(userId);
-      
-      await userDocRef.set({ flight: flughtData }, { merge: true });
-      response.status(200).send(`User ${userId} flight updated.`);
+      const userFlightsRef = db.collection('users').doc(userId).collection('flights');
+
+      // Add a new document to the 'flights' sub-collection
+      const newFlightRef = await userFlightsRef.add(flightData);
+      response.status(200).send(`Flight added with ID: ${newFlightRef.id} for user ${userId}.`);
     } catch (error) {
-      console.error("Error updating user's flight: ", error);
+      console.error("Error adding user's flight: ", error);
       response.status(500).send(error);
     }
   });
 });
 
-exports.addflight = functions.https.onRequest((request, response) => {
-  cors(request, response, async () => {
-    if (request.method !== 'POST') {
-      return response.status(405).send('Method Not Allowed');
-    }
 
-    const db = admin.firestore();
-    const flightData = request.body;
-
-    try {
-      const res = await db.collection('flight').add(flightData);
-      response.status(201).send({ id: res.id, ...flightData });
-    } catch (error) {
-      console.error("Error adding document: ", error);
-      response.status(500).send(error);
-    }
-  });
-});
 exports.deleteflight = functions.https.onRequest((request, response) => {
   cors(request, response, async () => {
     if (request.method !== 'DELETE') {

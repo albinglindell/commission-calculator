@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { IoMdAirplane } from "react-icons/io";
 import { TiDeleteOutline } from "react-icons/ti";
+import DataContext from '../store/dataContext';
 
 
-function FlightList({flight, deletePlane}) {
+function FlightList({flight}) {
+  const { deletePlane,  } = useContext(DataContext);
+
 
   return (
     <div className='flightList'>

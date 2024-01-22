@@ -1,12 +1,13 @@
-import React, {useState}from 'react'
+import React, {useContext, useState}from 'react'
 // import { Link } from 'react-router-dom'
 import PopupModul from './PopupModul'
 import Nav from './Nav'
 import Header from './Header'
+import DataContext from '../store/dataContext'
 
 function Homescreen() {
-    const totalProvision = localStorage.getItem("total-provision-earned")
     const [display, setDisplay]= useState(false)
+    const { totalProvision } = useContext(DataContext);
 
 
 

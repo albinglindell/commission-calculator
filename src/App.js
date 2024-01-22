@@ -4,10 +4,10 @@ import Homescreen from "./components/Homescreen";
 import Add from "./components/Add";
 import FlightHistory from "./components/FlightHistory";
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import { getAuth, onAuthStateChanged  } from 'firebase/auth';
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import Login from "./components/Login";
+import DataContext from "./store/dataContext";
 
 // import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -28,7 +28,6 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
-const db = getFirestore(app);
 const auth = getAuth(app);
 
 // Get a list of cities from your database
@@ -39,7 +38,7 @@ const auth = getAuth(app);
 
 
 function App() {
-  const [user, setUser] = useState(null);
+  const { setUser, user } = useContext(DataContext);
 
   useEffect(() => {
     const auth = getAuth();
@@ -49,20 +48,12 @@ function App() {
 
     // Cleanup subscription on unmount
     return () => unsubscribe();
-  }, []);
+  }, [setUser]);
 
 
 
   
-  async function getData() {
-    const querySnapshot = await getDocs(collection(db, "flight"));
-    querySnapshot.forEach((doc) => {
-      // console.log(doc.data());
-      // Process your document data here
-    });
-  }
 
-  getData()
   return (
     <div className="App">
       {user ? 
@@ -79,6 +70,7 @@ function App() {
       
 
     </div>
+  
   );
 }
 

@@ -1,9 +1,10 @@
-import React, { useRef, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import Nav from './Nav'
 import Header from './Header'
-import { getAuth } from 'firebase/auth';
+// import { getAuth } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom'
 import LoadingSpinner from './LoadingSpinner';
+import DataContext from '../store/dataContext';
 
 
 function Add() {
@@ -12,7 +13,7 @@ function Add() {
     let [totalSales, setTotalSales] = useState("")
     let [crewAmount, setCrewAmount] = useState("")
     let [percentage, setPercentage] = useState("")
-    const [loading, setLoading] = useState(false);
+    const { addPlaneToUserCollection, loading } = useContext(DataContext);
 
 
         let currentFlights = localStorage.getItem("flights")
@@ -24,33 +25,7 @@ function Add() {
     let Earning = useRef()
     let Percent = useRef()
 
-
-    const addPlaneToUserCollection = async (planeData) => {
-        
-        setLoading(true)
-        const auth = getAuth();
-        const user = auth.currentUser;
-      
-        if (user) {
-          const token = await user.getIdToken();
-          const response = await fetch('https://us-central1-commission-7410f.cloudfunctions.net/addflight', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify(planeData)
-          });
-          // Handle response
-          console.log(response)
-          setLoading(false)
-          navigate("/flightHistory")
-        } else {
-          // User not logged in
-        }
-      };
-                                            
-                                                        
+                                          
 
     const handleInputChangeEarnings = (input) => {
         if (input === FlightNr) {
@@ -89,11 +64,10 @@ function Add() {
         }
        if(currentFlights){
         addPlaneToUserCollection(currentFlight)
-        // currentFlights.unshift(currentFlight)
-        //     addToLocalStorageFunc(currentFlights, totalEarningPlusNewEarning)
-        }else{
-            // addToLocalStorageFunc(currentFlight, totalEarningPlusNewEarning)
-       }
+        navigate("/flightHistory")
+        
+
+        }
        
     }
 
