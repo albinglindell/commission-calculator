@@ -127,7 +127,7 @@ const DataProvider = ({ children }) => {
   }, [deletionCount]); // Empty dependency array to run only once
 
   return (
-    <DataContext.Provider value={{ 
+    <DataContext.Provider value={{
         fetchData, 
         currentFlights,
         totalProvision,
