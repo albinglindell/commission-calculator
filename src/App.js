@@ -15,22 +15,22 @@ import DataContext from "./store/dataContext";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyBIlCmgdJxcsAmy4mf0R5b5L-R63OiHdq8",
-  authDomain: "commission-7410f.firebaseapp.com",
-  projectId: "commission-7410f",
-  storageBucket: "commission-7410f.appspot.com",
-  messagingSenderId: "498298965728",
-  appId: "1:498298965728:web:1e95a92d632ed0f2c74a85",
-  measurementId: "G-XLPGJ72QYC"
-};
+// const firebaseConfig = {
+//   apiKey: "AIzaSyBIlCmgdJxcsAmy4mf0R5b5L-R63OiHdq8",
+//   authDomain: "commission-7410f.firebaseapp.com",
+//   projectId: "commission-7410f",
+//   storageBucket: "commission-7410f.appspot.com",
+//   messagingSenderId: "498298965728",
+//   appId: "1:498298965728:web:1e95a92d632ed0f2c74a85",
+//   measurementId: "G-XLPGJ72QYC"
+// };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-// const analytics = getAnalytics(app);
-const auth = getAuth(app);
+// // Initialize Firebase
+// const app = initializeApp(firebaseConfig);
+// // const analytics = getAnalytics(app);
+// const auth = getAuth(app);
 
-// Get a list of cities from your database
+// // Get a list of cities from your database
 
 
 
@@ -38,17 +38,18 @@ const auth = getAuth(app);
 
 
 function App() {
-  const { setUser, user } = useContext(DataContext);
+  const { setUser, user, auth } = useContext(DataContext);
 
-  useEffect(() => {
-    const auth = getAuth();
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-    });
+  // useEffect(() => {
+  //   const auth = getAuth();
+  //   const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+  //     setUser(currentUser);
 
-    // Cleanup subscription on unmount
-    return () => unsubscribe();
-  }, [setUser]);
+  //   });
+
+  //   // Cleanup subscription on unmount
+  //   return () => unsubscribe();
+  // }, [setUser]);
 
 
 

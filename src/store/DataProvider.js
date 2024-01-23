@@ -1,16 +1,45 @@
 import React, { useEffect, useState } from 'react';
 import DataContext from './dataContext';
-import {  GoogleAuthProvider, signInWithPopup  } from 'firebase/auth';
+import {  GoogleAuthProvider, signInWithPopup,getAuth, onAuthStateChanged  } from 'firebase/auth';
 import { doc, setDoc, getDoc, getFirestore } from 'firebase/firestore';
-
+import { initializeApp } from "firebase/app";
 const DataProvider = ({ children }) => {
   const [currentFlights, setCurrentFlights] = useState([]);
   const [totalProvision, setTotalProvision] = useState(0);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [noData, setNoData] = useState(false);
   const [user, setUser] = useState(false);
   const [deletionCount, setDeletionCount] = useState(0);
 //   const navigate = useNavigate()
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBIlCmgdJxcsAmy4mf0R5b5L-R63OiHdq8",
+  authDomain: "commission-7410f.firebaseapp.com",
+  projectId: "commission-7410f",
+  storageBucket: "commission-7410f.appspot.com",
+  messagingSenderId: "498298965728",
+  appId: "1:498298965728:web:1e95a92d632ed0f2c74a85",
+  measurementId: "G-XLPGJ72QYC"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+// const analytics = getAnalytics(app);
+const auth = getAuth(app);
+
+// Get a list of cities from your database
+
+  useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+
+    });
+
+    // Cleanup subscription on unmount
+    return () => unsubscribe();
+  }, [setUser]);
 
 
   const fetchData = async () => {
@@ -140,7 +169,8 @@ const DataProvider = ({ children }) => {
         deletePlane,
         signInWithGoogle,
         setUser,
-        user
+        user,
+        auth
         }}>
       {children}
     </DataContext.Provider>
