@@ -10,6 +10,7 @@ import DataContext from '../store/dataContext';
 function Add() {
     const navigate = useNavigate()
     let [flightNr, setFlightNr] = useState("")
+    let [date, setDate] = useState()
     let [totalSales, setTotalSales] = useState("")
     let [crewAmount, setCrewAmount] = useState("")
     let [percentage, setPercentage] = useState("")
@@ -24,6 +25,7 @@ function Add() {
     let Crewamount = useRef()
     let Earning = useRef()
     let Percent = useRef()
+    let DateNr = useRef()
 
                                           
 
@@ -35,6 +37,9 @@ function Add() {
         }
         if (input === Earning) {
          setTotalSales(Earning.current.value)
+        }
+        if (input === DateNr) {
+          setDate(DateNr.current.value)
         }
         if(input === Crewamount){
             setCrewAmount( Crewamount.current.value)
@@ -51,6 +56,7 @@ function Add() {
         let CrewamountVal = crewAmount
         let EarningVal = totalSales
         let PercentVal = percentage / 100
+        let DateVal = date
 
                 
 
@@ -60,7 +66,8 @@ function Add() {
         let currentFlight = 
             {
             "flightNr": FlightNrVal,
-            "provision":totalEarningOnCurrentFlight
+            "provision":totalEarningOnCurrentFlight,
+            "date": DateVal
         }
        if(currentFlights){
         addPlaneToUserCollection(currentFlight)
@@ -79,6 +86,7 @@ function Add() {
         <input  ref={Earning} onChange={()=>handleInputChangeEarnings(Earning)} type='number' inputMode="decimal" pattern="[0-9.,]*" className="totalEarnings" placeholder='Total sales' value={totalSales}/>
         <input  ref={Crewamount} onChange={()=>handleInputChangeEarnings(Crewamount)} type='number' inputMode='numeric' pattern="[0-9]*" className="crewAmount" placeholder='Crew amout' value={crewAmount}/>
         <input  ref={Percent} onChange={()=>handleInputChangeEarnings(Percent)} type='number' inputMode='numeric' pattern="[0-9]*" className="percentValue" placeholder='%' value={percentage}/>
+        <input  ref={DateNr} onChange={()=>handleInputChangeEarnings(DateNr)} id='date' type='date' className="date" value={date}/>
     </div>
      <div className="FormbuttonContainer">
         <button onClick={()=> provisionCalculator()} className="Formbutton">Add flight</button>

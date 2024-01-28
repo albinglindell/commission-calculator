@@ -251,12 +251,13 @@ button{
   font-size: 25px;
 }
 
-.flightNr, .totalEarnings{
+.flightNr, .totalEarnings , .percentValue{
 background: transparent;
 border: 0;
 min-width: 100%;
 color: white;
-text-align: center;
+padding-left: 15px;
+text-align: start;
 border-bottom: 1.5px solid rgb(16, 79, 131);
 
 }
@@ -264,30 +265,35 @@ border-bottom: 1.5px solid rgb(16, 79, 131);
   border-radius: 7px 7px 0 0;
 }
 
-.flightNr::placeholder, .totalEarnings::placeholder, .percentValue::placeholder, .crewAmount::placeholder{
+.flightNr::placeholder, .totalEarnings::placeholder, .percentValue::placeholder, .crewAmount::placeholder, .date::placeholder{
   color: rgb(255, 255, 255);
 }
-.flightNr:focus, .totalEarnings:focus, .percentValue:focus, .crewAmount:focus{
+.flightNr:focus, .totalEarnings:focus, .percentValue:focus, .crewAmount:focus, .date:focus{
 
   outline: .5px solid black;
 }
-.totalEarnings, .flightNr, .percentValue, .crewAmount{
+.totalEarnings, .flightNr, .percentValue, .crewAmount, .date{
   width: 100%;
-  height: 25%;
+  height: 20%;
 }
-.percentValue, .crewAmount{
+.crewAmount, .date{
   background: transparent;
   color: white;
-  text-align: center;
+  text-align: start;
+  padding-left: 15px;
   border: 0;
 }
-.percentValue{
+.date{
   border-radius: 0 0 7px 7px ;
 }
 .crewAmount{
   border-bottom: 1.5px solid rgb(16, 79, 131);
 }
-
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+}
 .Formbutton{
   margin: 10px;
   display: flex;
@@ -392,6 +398,20 @@ nav ol{
 .google{
   font-size: 25px;
 }
+
+.chartContainer{
+  position: relative;
+  height: 45svh; 
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.chart{
+  width: 85vw;
+  height: 80%;
+}
+
 .loadingContainer{
   position: absolute;
   width: 100svw;
