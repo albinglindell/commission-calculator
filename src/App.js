@@ -3,8 +3,6 @@ import "./App.css";
 import Homescreen from "./components/Homescreen";
 import Add from "./components/Add";
 import FlightHistory from "./components/FlightHistory";
-import { initializeApp } from "firebase/app";
-import { getAuth, onAuthStateChanged  } from 'firebase/auth';
 import { useContext, useEffect } from "react";
 import Login from "./components/Login";
 import DataContext from "./store/dataContext";
@@ -43,10 +41,6 @@ function App() {
   useEffect(() => {
     fetchData()
   }, [user]);
-
-
-
-  
 
   return (
     <div className="App">
