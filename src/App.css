@@ -6,6 +6,9 @@
   font-family: 'Heebo', sans-serif;
   font-weight: 400;
 }
+*::-webkit-scrollbar{
+  display: none;
+}
 .App{
   height: 100svh;
 }
@@ -86,7 +89,7 @@ body{
   gap: 8px;
   width: 90%;
   margin-top: 25px;
-  height: 65svh;
+  height: 47svh;
   overflow: scroll;
   list-style: none;
   color: rgb(67, 67, 67);
@@ -113,12 +116,9 @@ h1{
   justify-content: space-between;
   max-width: 98%;
   border-bottom: .5px solid rgb(207, 207, 207);
-  padding: 10px 20px;
+  padding: 10px 10px;
 }
 
-.provision{
-  margin-right: 20px;
-}
 .totalProvisionHeading{
   align-self: flex-end;
   position: absolute;
@@ -203,6 +203,9 @@ border: .5px solid black;
   font-size: 18px;
   font-weight: lighter;
 }
+/* .provision{
+  text-align: left;
+} */
 .flightName{
   font-weight: bold;
   width: 100px;
@@ -214,8 +217,8 @@ border: .5px solid black;
   justify-content: center;
 }
 .deleteIcon{
-  position: absolute;
-  right: 32px;
+  position: relative;
+  /* right: 32px; */
 }
 .planeIcon, .deleteIcon > svg{
   font-size: 25px;

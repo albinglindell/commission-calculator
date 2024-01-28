@@ -43,33 +43,42 @@ const auth = getAuth(app);
 
 
   const fetchData = async () => {
-    let token
-    if(user){
-        token = await user.getIdToken();
+    setLoading(true)
+    let token = '';
+    if (user) {
+      token = await user.getIdToken();
     }
-
-    fetch('https://us-central1-commission-7410f.cloudfunctions.net/getflight', {
-      method: 'GET',
-      headers: {
-        'Authorization': 'Bearer ' + token 
+  
+    try {
+      const response = await fetch('https://us-central1-commission-7410f.cloudfunctions.net/getflight', {
+        method: 'GET',
+        headers: {
+          'Authorization': 'Bearer ' + token 
+        }
+      });
+  
+      const data = await response.json();
+  
+      if (Array.isArray(data) && data.length > 0) {
+        setCurrentFlights(data);
+        const total = data.reduce((acc, obj) => Number(acc) + Number(obj.provision), 0);
+        setTotalProvision(total.toFixed(1));
+      } else {
+        // Handle the case where data is not in the expected format or is empty
+        setCurrentFlights([]);
+        setTotalProvision(0);
       }
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-      setCurrentFlights(data);
-      const total = data.reduce((acc, obj) => Number(acc) + Number(obj.provision), 0);
-      setTotalProvision(total);
+  
       setLoading(false);
       setNoData(!data || data.length === 0);
-    })
-    .catch(error => {
-      console.error('Error fetching flights:', error);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      // Handle error state
       setCurrentFlights([]);
       setTotalProvision(0);
       setLoading(false);
       setNoData(true);
-    });
+    }
   };
   
 

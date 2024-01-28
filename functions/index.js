@@ -84,25 +84,37 @@ exports.addFlight = functions.https.onRequest((request, response) => {
   });
 });
 
-
 exports.deleteflight = functions.https.onRequest((request, response) => {
   cors(request, response, async () => {
     if (request.method !== 'DELETE') {
       return response.status(405).send('Method Not Allowed');
     }
 
-    const db = admin.firestore();
-    const flightId = request.query.id; // Assuming the ID is passed as a query parameter
-
-    if (!flightId) {
-      return response.status(400).send('No flight ID provided');
-    }
-
     try {
-      await db.collection('flight').doc(flightId).delete();
-      response.status(200).send(`Document with ID ${flightId} successfully deleted`);
+      const token = request.get('Authorization').split('Bearer ')[1];
+      const decodedToken = await admin.auth().verifyIdToken(token);
+      const userId = decodedToken.uid;
+
+      const db = admin.firestore();
+      const flightId = request.query.id; // Assuming the ID is passed as a query parameter
+
+      if (!flightId) {
+        return response.status(400).send('No flight ID provided');
+      }
+
+      // Check if the flight belongs to the user
+      const flightRef = db.collection('users').doc(userId).collection('flights').doc(flightId);
+      const flightDoc = await flightRef.get();
+
+      if (!flightDoc.exists) {
+        return response.status(404).send('Flight not found');
+      }
+
+      // Delete the flight
+      await flightRef.delete();
+      response.status(200).send(`Flight with ID ${flightId} successfully deleted`);
     } catch (error) {
-      console.error("Error deleting document: ", error);
+      console.error("Error deleting flight: ", error);
       response.status(500).send(error);
     }
   });
