@@ -259,6 +259,7 @@ color: white;
 padding-left: 15px;
 text-align: start;
 border-bottom: 1.5px solid rgb(16, 79, 131);
+text-align: center;
 
 }
 .flightNr{
@@ -282,6 +283,8 @@ border-bottom: 1.5px solid rgb(16, 79, 131);
   text-align: start;
   padding-left: 15px;
   border: 0;
+  text-align: center;
+
 }
 .date{
   border-radius: 0 0 7px 7px ;
