@@ -38,18 +38,11 @@ import DataContext from "./store/dataContext";
 
 
 function App() {
-  const { setUser, user, auth } = useContext(DataContext);
+  const { user, auth, fetchData } = useContext(DataContext);
 
-  // useEffect(() => {
-  //   const auth = getAuth();
-  //   const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-  //     setUser(currentUser);
-
-  //   });
-
-  //   // Cleanup subscription on unmount
-  //   return () => unsubscribe();
-  // }, [setUser]);
+  useEffect(() => {
+    fetchData()
+  }, [user]);
 
 
 

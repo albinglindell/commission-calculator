@@ -34,16 +34,19 @@ const auth = getAuth(app);
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-
     });
 
     // Cleanup subscription on unmount
+    fetchData()
     return () => unsubscribe();
   }, [setUser]);
 
 
   const fetchData = async () => {
-    const token = await user.getIdToken();
+    let token
+    if(user){
+        token = await user.getIdToken();
+    }
 
     fetch('https://us-central1-commission-7410f.cloudfunctions.net/getflight', {
       method: 'GET',
@@ -94,23 +97,32 @@ const auth = getAuth(app);
   };
 
   const deletePlane = async (planeId) => {
-    setLoading(true)
+    let token
+    if(user){
+        token = await user.getIdToken();
+    }
+
+    setLoading(true);
     try {
       const response = await fetch(`https://us-central1-commission-7410f.cloudfunctions.net/deleteflight?id=${planeId}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+          'Authorization': 'Bearer ' + token // Include the Firebase ID token in the request headers
+        }
       });
   
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      setDeletionCount(deletionCount => deletionCount + 1)
+      setDeletionCount(deletionCount => deletionCount + 1);
       console.log('Delete response:', await response.text());
-      setLoading(false)
+      setLoading(false);
     } catch (error) {
-        console.error('Error deleting plane:', error);
-        setLoading(false)
+      console.error('Error deleting plane:', error);
+      setLoading(false);
     }
   };
+  
   
     
   const signInWithGoogle = (auth) => {
