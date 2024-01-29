@@ -12,6 +12,7 @@ const DataProvider = ({ children }) => {
   const [deletionCount, setDeletionCount] = useState(0);
   const [wrongDetails, setWrongDetails] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
+  const [monthlyTotals, setMonthlyTotals] = useState();
 
 
 const firebaseConfig = {
@@ -44,45 +45,101 @@ const auth = getAuth(app);
 
 
   const fetchData = async () => {
-    setLoading(true)
+    setLoading(true);
     let token = '';
     if (user) {
       token = await user.getIdToken();
     }
   
-      if(user){ try {
-      const response = await fetch('https://us-central1-commission-7410f.cloudfunctions.net/getflight', {
-        method: 'GET',
-        headers: {
-          'Authorization': 'Bearer ' + token 
+    if(user) { 
+      try {
+        const response = await fetch('https://us-central1-commission-7410f.cloudfunctions.net/getflight', {
+          method: 'GET',
+          headers: {
+            'Authorization': 'Bearer ' + token 
+          }
+        });
+  
+        const data = await response.json();
+  
+        if (Array.isArray(data) && data.length > 0) {
+          setCurrentFlights(data);
+  
+          // Group flights by month and sum up the provisions
+          const monthlyTotals = data.reduce((acc, flight) => {
+            const flightDate = new Date(flight.date);
+            const monthYearKey = `${flightDate.getFullYear()}-0${flightDate.getMonth() + 1}`
+  
+            acc[monthYearKey] = (acc[monthYearKey] || 0) + Number(flight.provision);
+            return acc;
+          }, {});
+  
+          // Set the state for monthly totals
+          setMonthlyTotals(monthlyTotals);
+  
+          // Calculate the total provision for all flights
+          const total = Object.values(monthlyTotals).reduce((sum, value) => sum + value, 0);
+          setTotalProvision(total.toFixed(1));
+        } else {
+          // Handle the case where data is not in the expected format or is empty
+          setCurrentFlights([]);
+          setTotalProvision(0);
+          setMonthlyTotals({});
         }
-      });
   
-      const data = await response.json();
-  
-      if (Array.isArray(data) && data.length > 0) {
-        setCurrentFlights(data);
-        const total = data.reduce((acc, obj) => Number(acc) + Number(obj.provision), 0);
-        setTotalProvision(total.toFixed(1));
-      } else {
-        // Handle the case where data is not in the expected format or is empty
+        setLoading(false);
+        setNoData(!data || data.length === 0);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        // Handle error state
         setCurrentFlights([]);
         setTotalProvision(0);
+        setMonthlyTotals({});
+        setLoading(false);
+        setNoData(true);
       }
-  
-      setLoading(false);
-      setNoData(!data || data.length === 0);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-      // Handle error state
-      setCurrentFlights([]);
-      setTotalProvision(0);
-      setLoading(false);
-      setNoData(true);
-    }}
+    }
   };
   
-
+  // const fetchData = async () => {
+  //   setLoading(true)
+  //   let token = '';
+  //   if (user) {
+  //     token = await user.getIdToken();
+  //   }
+  
+  //     if(user){ try {
+  //     const response = await fetch('https://us-central1-commission-7410f.cloudfunctions.net/getflight', {
+  //       method: 'GET',
+  //       headers: {
+  //         'Authorization': 'Bearer ' + token 
+  //       }
+  //     });
+  
+  //     const data = await response.json();
+  
+  //     if (Array.isArray(data) && data.length > 0) {
+  //       setCurrentFlights(data);
+  //       const total = data.reduce((acc, obj) => Number(acc) + Number(obj.provision), 0);
+  //       setTotalProvision(total.toFixed(1));
+  //     } else {
+  //       // Handle the case where data is not in the expected format or is empty
+  //       setCurrentFlights([]);
+  //       setTotalProvision(0);
+  //     }
+  
+  //     setLoading(false);
+  //     setNoData(!data || data.length === 0);
+  //   } catch (error) {
+  //     console.error('Error fetching data:', error);
+  //     // Handle error state
+  //     setCurrentFlights([]);
+  //     setTotalProvision(0);
+  //     setLoading(false);
+  //     setNoData(true);
+  //   }}
+  // };
+  
   const addPlaneToUserCollection = async (planeData) => {
         
     setLoading(true)
@@ -132,9 +189,7 @@ const auth = getAuth(app);
       setLoading(false);
     }
   };
-  
-  
-    
+   
   const signInWithGoogle = (auth) => {
     const provider = new GoogleAuthProvider();
 
@@ -247,7 +302,8 @@ const auth = getAuth(app);
         registerWithEmailPassword,
         signInWithEmailPassword,
         wrongDetails,
-        authenticated
+        authenticated,
+        monthlyTotals
         }}>
       {children}
     </DataContext.Provider>

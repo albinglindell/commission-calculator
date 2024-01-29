@@ -1,16 +1,15 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useContext } from 'react';
 import Chart from 'chart.js/auto';
+import DataContext from '../store/dataContext';
 
 const LineChart = () => {
     const chartRef = useRef(null);
     const chartInstance = useRef(null); // Reference to store the chart instance
+    const { monthlyTotals } = useContext(DataContext);
 
     useEffect(() => {
-        // Example sales data
-        const monthlySales = [650, 590, 800, 810, 560, 550];
-
-        // Calculate 10% commission for each month
-        const monthlyCommissions = monthlySales;
+        
+        const monthlyCommissions = monthlyTotals;
 
         // Destroy the previous chart instance if it exists
         if (chartInstance.current) {
@@ -23,7 +22,6 @@ const LineChart = () => {
             chartInstance.current = new Chart(chartContext, {
                 type: 'line', // Chart type
                 data: {
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'], // X-axis labels
                     datasets: [{
                         label: 'Monthly Commissions', // Dataset label
                         data: monthlyCommissions, // Data points (commission values)
