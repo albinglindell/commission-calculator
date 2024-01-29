@@ -192,6 +192,8 @@ const auth = getAuth(app);
         // Additional logic after user creation in Firestore
         setUser(registredUser)
         setAuthenticated(true)
+        setWrongDetails(false)
+
       })
       .catch((error) => {
         console.error("Error during registration", error);
