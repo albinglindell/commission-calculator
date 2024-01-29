@@ -88,8 +88,8 @@ body{
   flex-direction: column;
   gap: 8px;
   width: 90%;
-  margin-top: 25px;
-  height: 47svh;
+  margin-top: 0px;
+  height: 50svh;
   overflow: scroll;
   list-style: none;
   color: rgb(67, 67, 67);
@@ -376,11 +376,17 @@ nav ol{
 }
 
 .LoginContainer{
-  height: 100svh;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 10px;
+}
+#email, #password, #name{
+  color: black;
+}
+.error{
+  color: red;
 }
 .loginButton{
   display: flex;
@@ -397,6 +403,17 @@ nav ol{
   border: thin solid #888;
   box-shadow: 1px 1px 1px grey;
   white-space: nowrap;
+}
+.loginButton.emailBtn{
+  width: 140px;
+  height: 35px;
+  display: flex;
+}
+.loginBtnContainer{
+  width: 100%;
+  display: flex;
+  margin-top: 10px;
+  justify-content: center;
 }
 .google{
   font-size: 25px;

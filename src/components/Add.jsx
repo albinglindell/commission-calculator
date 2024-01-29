@@ -67,7 +67,7 @@ function Add() {
         }
   
         addPlaneToUserCollection(currentFlight)
-        navigate("/flightHistory")  
+        navigate("/FlightHistory")  
     }
 
   return (

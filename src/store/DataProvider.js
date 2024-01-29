@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import DataContext from './dataContext';
-import {  GoogleAuthProvider, signInWithPopup,getAuth, onAuthStateChanged  } from 'firebase/auth';
+import {  GoogleAuthProvider, signInWithPopup,getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc, getDoc, getFirestore } from 'firebase/firestore';
 import { initializeApp } from "firebase/app";
 const DataProvider = ({ children }) => {
@@ -10,7 +10,8 @@ const DataProvider = ({ children }) => {
   const [noData, setNoData] = useState(false);
   const [user, setUser] = useState(false);
   const [deletionCount, setDeletionCount] = useState(0);
-//   const navigate = useNavigate()
+  const [wrongDetails, setWrongDetails] = useState(false);
+  const [authenticated, setAuthenticated] = useState(false);
 
 
 const firebaseConfig = {
@@ -49,7 +50,7 @@ const auth = getAuth(app);
       token = await user.getIdToken();
     }
   
-    try {
+      if(user){ try {
       const response = await fetch('https://us-central1-commission-7410f.cloudfunctions.net/getflight', {
         method: 'GET',
         headers: {
@@ -78,7 +79,7 @@ const auth = getAuth(app);
       setTotalProvision(0);
       setLoading(false);
       setNoData(true);
-    }
+    }}
   };
   
 
@@ -170,6 +171,55 @@ const auth = getAuth(app);
       });
   };
 
+  const registerWithEmailPassword = (email, password, displayName) => {
+    const auth = getAuth();
+  
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(async (userCredential) => {
+        // User is registered
+        const registredUser = userCredential.user;
+  
+        // Get Firestore instance
+        const db = getFirestore();
+  
+        // Add the new user to Firestore
+        const userRef = doc(db, 'users', registredUser.uid);
+        await setDoc(userRef, {
+          name: displayName,
+          email: registredUser.email,
+          // Add any other relevant user info
+        });
+        // Additional logic after user creation in Firestore
+        setUser(registredUser)
+        setAuthenticated(true)
+      })
+      .catch((error) => {
+        console.error("Error during registration", error);
+        // Handle registration errors
+      });
+  };
+
+
+  const signInWithEmailPassword = (email, password) => {
+    const auth = getAuth();
+  
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // User is signed in
+        const user = userCredential.user;
+        
+        // Additional logic after user sign-in
+        // ...
+        setUser(user)
+        setWrongDetails(false)
+        setAuthenticated(true)
+      })
+      .catch((error) => {
+        console.error("Error during sign in with email and password", error);
+        // Handle sign-in errors
+        setWrongDetails(true)
+      });
+  };
   // Fetch data when the component mounts
   useEffect(() => {
       fetchData();
@@ -191,7 +241,11 @@ const auth = getAuth(app);
         signInWithGoogle,
         setUser,
         user,
-        auth
+        auth,
+        registerWithEmailPassword,
+        signInWithEmailPassword,
+        wrongDetails,
+        authenticated
         }}>
       {children}
     </DataContext.Provider>

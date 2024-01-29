@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import "./App.css";
 import Homescreen from "./components/Homescreen";
 import Add from "./components/Add";
@@ -6,6 +6,7 @@ import FlightHistory from "./components/FlightHistory";
 import { useContext, useEffect } from "react";
 import Login from "./components/Login";
 import DataContext from "./store/dataContext";
+import Signup from "./components/Signup";
 
 // import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -36,11 +37,18 @@ import DataContext from "./store/dataContext";
 
 
 function App() {
-  const { user, auth, fetchData } = useContext(DataContext);
+  const { user, auth, fetchData, authenticated } = useContext(DataContext);
+  const navigate = useNavigate()
 
   useEffect(() => {
     fetchData()
   }, [user]);
+
+  useEffect(() => {
+    navigate("/")
+  }, [authenticated]);
+
+
 
   return (
     <div className="App">
@@ -53,6 +61,7 @@ function App() {
       :   
       <Routes>
         <Route path="/" element={<Login auth={auth}/>} />
+        <Route path="/signup" element={<Signup auth={auth} />} />
       </Routes>
      }
       
