@@ -74,9 +74,16 @@ const auth = getAuth(app);
             return acc;
           }, {});
   
+          let sortedArray = Object.entries(monthlyTotals).sort((a, b) => {
+            return a[0].localeCompare(b[0]);
+        });
+        
+        // If you need the result as an object
+        let sortedObject = Object.fromEntries(sortedArray);
+
+
           // Set the state for monthly totals
-          setMonthlyTotals(monthlyTotals);
-  
+          setMonthlyTotals(sortedObject);
           // Calculate the total provision for all flights
           const total = Object.values(monthlyTotals).reduce((sum, value) => sum + value, 0);
           setTotalProvision(total.toFixed(1));

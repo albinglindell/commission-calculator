@@ -11,7 +11,9 @@ function FlightHistory() {
   const { currentFlights, totalProvision, loading, noData, setCurrentFlights } = useContext(DataContext);
   
 
-
+let sortedFlights =currentFlights.sort((a, b) => {
+  return new Date(a.date) - new Date(b.date);
+});
   return (
     <div className="flightHistory">
       {/* <Backbutton /> */}
@@ -19,7 +21,7 @@ function FlightHistory() {
       <h1 className="flightListHeading">Commission</h1>
       {noData && <h2>Currently no flights added..</h2>}
       <ol className="orientedList">
-        {currentFlights && currentFlights.map((preFlight, i) => {
+        {currentFlights && sortedFlights.map((preFlight, i) => {
           return (
             <li key={i} className="history-li">
               <FlightList flight={preFlight} setCurrentFlights={setCurrentFlights}/>
