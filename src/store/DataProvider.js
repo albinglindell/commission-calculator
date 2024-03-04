@@ -310,7 +310,7 @@ const auth = getAuth(app);
         signInWithEmailPassword,
         wrongDetails,
         authenticated,
-        monthlyTotals
+        monthlyTotals,
         }}>
       {children}
     </DataContext.Provider>

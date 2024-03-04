@@ -5,7 +5,7 @@ import DataContext from '../store/dataContext';
 
 
 function FlightList({flight}) {
-  const { deletePlane,  } = useContext(DataContext);
+  const { deletePlane } = useContext(DataContext);
 
 
   return (
